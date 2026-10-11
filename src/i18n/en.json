@@ -62,7 +62,8 @@
     "fortunesReset": "Fortunes reshuffled ✓",
     "done": "Done",
     "defaultTreat": "Halloween candy",
-    "defaultGrand": "Campus store gift card"
+    "defaultGrand": "Campus store gift card",
+    "resetNames": "Reset prize names"
   },
   "wheel": {
     "grand": "GRAND PRIZE",

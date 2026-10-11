@@ -62,7 +62,8 @@
     "fortunesReset": "预言已重新洗牌 ✓",
     "done": "完成",
     "defaultTreat": "万圣节糖果",
-    "defaultGrand": "校园商店礼品卡"
+    "defaultGrand": "校园商店礼品卡",
+    "resetNames": "恢复默认奖品名称"
   },
   "wheel": {
     "grand": "大奖",

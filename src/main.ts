@@ -360,8 +360,21 @@ const fromField = (value: string, key: 'defaultTreat' | 'defaultGrand', englishD
   const v = value.trim();
   return !v || isDefaultName(v, key) ? englishDefault : v;
 };
-treatName.addEventListener('change', () => update({ treatName: fromField(treatName.value, 'defaultTreat', content.defaults.treatName) }));
-grandName.addEventListener('change', () => update({ grandName: fromField(grandName.value, 'defaultGrand', content.defaults.grandName) }));
+// Save on every keystroke (not only when leaving the box): on iPhones, tapping elsewhere often
+// doesn't take the cursor out of the box, so a "change" event alone could lose the edit.
+const saveTreat = () => update({ treatName: fromField(treatName.value, 'defaultTreat', content.defaults.treatName) });
+const saveGrand = () => update({ grandName: fromField(grandName.value, 'defaultGrand', content.defaults.grandName) });
+treatName.addEventListener('input', saveTreat);
+treatName.addEventListener('change', saveTreat);
+grandName.addEventListener('input', saveGrand);
+grandName.addEventListener('change', saveGrand);
+// Leaving a box empty brings back the default name (in the chosen language).
+treatName.addEventListener('blur', () => { if (!treatName.value.trim()) treatName.value = treatLabel(); });
+grandName.addEventListener('blur', () => { if (!grandName.value.trim()) grandName.value = grandLabel(); });
+$('reset-names').addEventListener('click', () => {
+  update({ treatName: content.defaults.treatName, grandName: content.defaults.grandName });
+  renderHost();
+});
 optVoice.addEventListener('change', () => update({ voice: optVoice.checked }));
 optMusic.addEventListener('change', () => update({ music: optMusic.checked }));
 optSfx.addEventListener('change', () => update({ sfx: optSfx.checked }));
