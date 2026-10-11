@@ -14,6 +14,7 @@ import { onChange, settings, update } from './settings';
 import { Wheel } from './wheel';
 import batSvg from './assets/icons/bat.svg?raw';
 import speakerSvg from './assets/icons/speaker.svg?raw';
+import gearSvg from './assets/icons/gear.svg?raw';
 import crystalBall from './assets/icons/crystal-ball.svg?raw';
 import skullCandle from './assets/icons/skull-candle.svg?raw';
 import hourglass from './assets/icons/winged-hourglass.svg?raw';
@@ -26,6 +27,7 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 /* ---------- Decoration ---------- */
 document.querySelectorAll<HTMLElement>('[data-icon="bat"]').forEach((el) => (el.innerHTML = batSvg));
 $('sound-btn').innerHTML = speakerSvg;
+$('host-btn').innerHTML = gearSvg;
 (() => {
   const stars = $('stars');
   const count = Math.round((window.innerWidth * window.innerHeight) / 9000);
@@ -46,6 +48,9 @@ const audio = new AudioEngine();
 const loc = () => LOCALES[settings.lang];
 const t = (key: UiKey) => loc().ui[key];
 const linesFor = (moment: string) => linesIn(moment, settings.lang);
+/** Prize names: the host's own text, or (if never changed) the default in the chosen language. */
+const treatLabel = () => (settings.treatName === content.defaults.treatName ? t('defaultTreat') : settings.treatName);
+const grandLabel = () => (settings.grandName === content.defaults.grandName ? t('defaultGrand') : settings.grandName);
 
 const wheel = new Wheel($('wheel'), content.wheel, loc().wheel);
 const fortunes = new Deck(content.fortunes, 'wof.fortunes.v1');
@@ -195,7 +200,7 @@ async function reveal(type: SliceType, grandGone: boolean): Promise<void> {
         eyebrow: grandGone ? t('grandGoneEyebrow') : t('treatEyebrow'),
         title: t('treatTitle'),
         body: grandGone ? t('grandGoneBody') : t('treatBody'),
-        foot: `${t('prizePrefix')}${settings.treatName}`,
+        foot: `${t('prizePrefix')}${treatLabel()}`,
         button: t('close'),
       });
       void audio.say(grandGone ? linesFor('grandGone')[0] : pick(linesFor('treat')));
@@ -207,7 +212,7 @@ async function reveal(type: SliceType, grandGone: boolean): Promise<void> {
         eyebrow: t('grandEyebrow'),
         title: t('grandTitle'),
         body: t('grandBody'),
-        foot: `${t('prizePrefix')}${settings.grandName}`,
+        foot: `${t('prizePrefix')}${grandLabel()}`,
         button: t('close'),
       });
       void audio.say(pick(linesFor('grand')));
@@ -295,8 +300,8 @@ const optMusic = $<HTMLInputElement>('opt-music');
 const optSfx = $<HTMLInputElement>('opt-sfx');
 
 function renderHost(): void {
-  treatName.value = settings.treatName;
-  grandName.value = settings.grandName;
+  treatName.value = treatLabel();
+  grandName.value = grandLabel();
   $('grand-stock').textContent = String(settings.grandStock);
   hostDlg.querySelectorAll<HTMLButtonElement>('[data-step="grandStock"]').forEach((b) => {
     const d = Number(b.dataset.delta);
@@ -307,11 +312,13 @@ function renderHost(): void {
   optSfx.checked = settings.sfx;
   hostDlg.querySelectorAll<HTMLInputElement>('input[name="lang"]').forEach((r) => (r.checked = r.value === settings.lang));
 }
+const hostBtn = $<HTMLButtonElement>('host-btn');
 function openHost(): void {
   if (hostDlg.open || spinning) return;
   renderHost();
   hostDlg.classList.remove('is-closing');
   hostDlg.showModal();
+  hostBtn.setAttribute('aria-expanded', 'true');
 }
 /** Slide the panel out to the right, then close it. */
 function closeHost(): void {
@@ -320,11 +327,13 @@ function closeHost(): void {
   const done = () => {
     hostDlg.classList.remove('is-closing');
     if (hostDlg.open) hostDlg.close();
+    hostBtn.setAttribute('aria-expanded', 'false');
   };
   hostDlg.addEventListener('animationend', done, { once: true });
   setTimeout(done, 400); // fallback if animations are off
 }
 $('host-close').addEventListener('click', closeHost);
+hostBtn.addEventListener('click', () => (hostDlg.open ? closeHost() : openHost()));
 $('host-form').addEventListener('submit', (e) => {
   e.preventDefault();
   closeHost();
@@ -336,8 +345,12 @@ hostDlg.addEventListener('cancel', (e) => {
 hostDlg.addEventListener('click', (e) => {
   if (e.target === hostDlg) closeHost(); // click on the dimmed area
 });
-treatName.addEventListener('change', () => update({ treatName: treatName.value.trim() || content.defaults.treatName }));
-grandName.addEventListener('change', () => update({ grandName: grandName.value.trim() || content.defaults.grandName }));
+const fromField = (value: string, localDefault: string, englishDefault: string) => {
+  const v = value.trim();
+  return !v || v === localDefault ? englishDefault : v; // empty or untouched default → keep following the language
+};
+treatName.addEventListener('change', () => update({ treatName: fromField(treatName.value, t('defaultTreat'), content.defaults.treatName) }));
+grandName.addEventListener('change', () => update({ grandName: fromField(grandName.value, t('defaultGrand'), content.defaults.grandName) }));
 optVoice.addEventListener('change', () => update({ voice: optVoice.checked }));
 optMusic.addEventListener('change', () => update({ music: optMusic.checked }));
 optSfx.addEventListener('change', () => update({ sfx: optSfx.checked }));
@@ -353,15 +366,17 @@ hostDlg.querySelectorAll<HTMLButtonElement>('[data-step]').forEach((b) =>
     renderHost();
   }),
 );
-$('reset-stock').textContent = `Reset to ${content.defaults.grandStock} grand prizes`;
+const renderResetStock = () => ($('reset-stock').textContent = t('resetStock').replace('{n}', String(content.defaults.grandStock)));
 $('reset-stock').addEventListener('click', () => {
   update({ grandStock: content.defaults.grandStock });
   renderHost();
 });
+let fortunesTimer = 0;
 $('reset-fortunes').addEventListener('click', () => {
   fortunes.reset();
-  $('reset-fortunes').textContent = 'Fortunes reshuffled ✓';
-  setTimeout(() => ($('reset-fortunes').textContent = 'Reset fortunes'), 1800);
+  $('reset-fortunes').textContent = t('fortunesReset');
+  window.clearTimeout(fortunesTimer);
+  fortunesTimer = window.setTimeout(() => ($('reset-fortunes').textContent = t('resetFortunes')), 1800);
 });
 onChange(() => {
   if (!$('play').hidden) audio.syncLoops();
@@ -381,7 +396,8 @@ document.addEventListener('keydown', (e) => {
   if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.key.toLowerCase() === 'h') {
     e.preventDefault();
-    openHost();
+    if (hostDlg.open) closeHost();
+    else openHost();
   }
 });
 
@@ -401,6 +417,7 @@ function applyLang(): void {
   if (!spinning) spinBtn.textContent = t('spin');
   if (!captionEl.classList.contains('is-speaking')) setCaption(t('waiting'), false);
   renderSound();
+  renderResetStock();
 }
 
 function setLang(lang: Lang): void {

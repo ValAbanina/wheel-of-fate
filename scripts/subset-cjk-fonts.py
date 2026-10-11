@@ -17,7 +17,7 @@ out.mkdir(parents=True, exist_ok=True)
 def chars(name):
     data = json.loads((root / 'src' / 'i18n' / f'{name}.json').read_text('utf-8'))
     text = json.dumps(data, ensure_ascii=False)
-    return ''.join(sorted(set(text) | set('0123456789：，。、！？“”「」……（）')))
+    return ''.join(sorted(set(text) | set('0123456789：，。、！？“”「」……（）简体中文繁體中文')))
 
 jobs = [
     ('zh-Hans', 'noto-serif-sc', 'chinese-simplified', 'noto-serif-sc'),

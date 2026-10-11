@@ -7,7 +7,7 @@ A Halloween spin-the-wheel game. Spin the wheel: land on a prize and win it from
 - Voice, music and sound effects generated with ElevenLabs
 - Mobile-first: phones and tablets in both orientations, plus desktop / event screens
 - Accessible: captions for every spoken line, keyboard play (Space/Enter), screen-reader announcements, reduced-motion mode
-- Host panel (hold the title 3 s, or press **H**): prize names, grand prizes left (default 3, up to 10), sound toggles
+- Host panel (the ⚙ button, holding the title 3 s, or **H** to open and close): language, prize names, grand prizes left (default 3, up to 10), sound toggles. It's shown in the chosen language
 - Treats never run out; when the grand prizes are all claimed, that slice gives a treat instead
 - Four languages, chosen by the host: English, Русский, 简体中文, 繁體中文 (both Chinese scripts share the Mandarin voice)
 

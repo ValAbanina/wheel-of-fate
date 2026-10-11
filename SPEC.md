@@ -29,7 +29,7 @@ Static website, mobile-first, works on phones, tablets and desktop/event screens
 | Randomness | Truly random every spin (`crypto.getRandomValues`), result chosen first, wheel animates to land on it. Repeat winners allowed. |
 | Prize stock | Treats are unlimited (host brings ~1 treat per 4 guests). Grand prizes are counted: host sets 0–10 in the host panel, default **3**. When all are claimed, the Grand Prize slice gives a treat instead, so nobody leaves empty-handed. |
 | Voice | ElevenLabs, neutral English accent, pre-generated MP3s |
-| Language | English, Russian, Simplified Chinese, Traditional Chinese — chosen by the host in the host panel. Host panel itself stays English. |
+| Language | English, Russian, Simplified Chinese, Traditional Chinese — chosen by the host in the host panel. The host panel follows the chosen language too. Default prize names are translated; names the host types are shown as typed. |
 | ElevenLabs plan | Starter (commercial license, 30,000 credits/month, SFX + Music included) |
 | Devices | Mobile-first: phone portrait/landscape, tablet portrait/landscape, desktop |
 | Repo | Public GitHub. No Adobe Stock files in the repo; all art is original. |
@@ -40,7 +40,7 @@ Static website, mobile-first, works on phones, tablets and desktop/event screens
 Enter (curtain) ──tap──▶ Spin ──tap/swipe/Space──▶ Spinning (4–6 s) ──▶ Result card
                           ▲                                               │
                           └──────────────── "Spin again" ◀────────────────┘
-Host panel: hold logo 3 s, or press H  (hidden from guests)
+Host panel: ⚙ button in the header, hold logo 3 s, or press H (H also closes it)
 ```
 
 | # | Screen | Behaviour | Audio |
@@ -49,7 +49,7 @@ Host panel: hold logo 3 s, or press H  (hidden from guests)
 | 2 | Spin | Header, Madame Nocturne + caption, wheel, "SPIN THE WHEEL". | `VO_INTRO_*` once per session; `VO_IDLE_*` after 20 s idle |
 | 3 | Spinning | Button disabled ("THE WHEEL TURNS…"), ticks slow down. | `VO_SPIN_*`, `SFX_SPIN_START`, `SFX_TICK` per slice passed, `SFX_DRONE_RISE`, `SFX_STOP` |
 | 4 | Result | Card unrolls (bottom sheet on phones, beside wheel on landscape/desktop). Treat, Grand Prize and Fortune cards only have **Close** (one spin per guest); only the Black Cat card has **Spin now**. Closing stops the voice. | Result VO + SFX (see §5) |
-| 5 | Host panel | Side panel that slides in from the right (full width on phones). Prize names, grand prizes left (0–10, default 3, with reset), voice/music/SFX toggles, reset. Close with ×, Done, Esc or tapping outside. Saved in `localStorage`. | — |
+| 5 | Host panel | Side panel that slides in from the right (full width on phones). Prize names, grand prizes left (0–10, default 3, with reset), voice/music/SFX toggles, reset. Open with the ⚙ button (next to the sound button), a 3 s hold on the title, or H. Close with ×, Done, Esc, H or tapping outside. Saved in `localStorage`. | — |
 
 ## 4. The wheel
 
@@ -230,11 +230,11 @@ Rules: wheel size = `min(90vw, 60vh)`; glowing elements stay ≥ 24 px from the 
 - Every slice has a text label + icon (never colour alone).
 - Touch targets ≥ 44 px (buttons 60 px).
 - Every spoken line is shown as a caption; mute button on every screen; no audio before the first tap.
-- Keyboard: Tab order header → wheel → button; **Space/Enter spins**; **H** opens host panel; visible focus ring (bone, 4 px).
+- Keyboard: Tab order header → wheel → button; **Space/Enter spins**; **H** opens and closes the host panel; the ⚙ button has `aria-haspopup="dialog"` and `aria-expanded`; visible focus ring (bone, 4 px).
 - Screen reader: wheel is a `button` ("Spin the wheel"); result announced via `aria-live="polite"`; decorative art `aria-hidden`.
 - `prefers-reduced-motion`: 1 s fade/turn instead of long spin, no sparkles or flicker.
 - No flashing more than 3 times per second.
-- `<html lang>` follows the chosen language (`en`, `ru`, `zh-Hans`, `zh-Hant`); the host panel is marked `lang="en"`.
+- `<html lang>` follows the chosen language (`en`, `ru`, `zh-Hans`, `zh-Hant`); the host panel follows it (only the language names keep their own `lang`).
 - Verify with axe + Lighthouse (target 100) and a manual VoiceOver/TalkBack pass.
 
 ## 10. Tech
