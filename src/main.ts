@@ -49,8 +49,10 @@ const loc = () => LOCALES[settings.lang];
 const t = (key: UiKey) => loc().ui[key];
 const linesFor = (moment: string) => linesIn(moment, settings.lang);
 /** Prize names: the host's own text, or (if never changed) the default in the chosen language. */
-const treatLabel = () => (settings.treatName === content.defaults.treatName ? t('defaultTreat') : settings.treatName);
-const grandLabel = () => (settings.grandName === content.defaults.grandName ? t('defaultGrand') : settings.grandName);
+const allDefaults = (key: 'defaultTreat' | 'defaultGrand') => Object.values(LOCALES).map((l) => l.ui[key]);
+const isDefaultName = (name: string, key: 'defaultTreat' | 'defaultGrand') => allDefaults(key).includes(name);
+const treatLabel = () => (isDefaultName(settings.treatName, 'defaultTreat') ? t('defaultTreat') : settings.treatName);
+const grandLabel = () => (isDefaultName(settings.grandName, 'defaultGrand') ? t('defaultGrand') : settings.grandName);
 
 const wheel = new Wheel($('wheel'), content.wheel, loc().wheel);
 const fortunes = new Deck(content.fortunes, 'wof.fortunes.v1');
@@ -353,12 +355,13 @@ hostDlg.addEventListener('cancel', (e) => {
 hostDlg.addEventListener('click', (e) => {
   if (e.target === hostDlg) closeHost(); // click on the dimmed area
 });
-const fromField = (value: string, localDefault: string, englishDefault: string) => {
+/** Empty, or the default name in any language → store the default, so it keeps following the language. */
+const fromField = (value: string, key: 'defaultTreat' | 'defaultGrand', englishDefault: string) => {
   const v = value.trim();
-  return !v || v === localDefault ? englishDefault : v; // empty or untouched default → keep following the language
+  return !v || isDefaultName(v, key) ? englishDefault : v;
 };
-treatName.addEventListener('change', () => update({ treatName: fromField(treatName.value, t('defaultTreat'), content.defaults.treatName) }));
-grandName.addEventListener('change', () => update({ grandName: fromField(grandName.value, t('defaultGrand'), content.defaults.grandName) }));
+treatName.addEventListener('change', () => update({ treatName: fromField(treatName.value, 'defaultTreat', content.defaults.treatName) }));
+grandName.addEventListener('change', () => update({ grandName: fromField(grandName.value, 'defaultGrand', content.defaults.grandName) }));
 optVoice.addEventListener('change', () => update({ voice: optVoice.checked }));
 optMusic.addEventListener('change', () => update({ music: optMusic.checked }));
 optSfx.addEventListener('change', () => update({ sfx: optSfx.checked }));
@@ -430,6 +433,7 @@ function applyLang(): void {
   if (!captionEl.classList.contains('is-speaking')) setCaption(t('waiting'), false);
   renderSound();
   renderResetStock();
+  if (hostDlg.open) renderHost(); // refresh the prize-name boxes in the new language right away
 }
 
 function setLang(lang: Lang): void {
