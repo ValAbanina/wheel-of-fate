@@ -49,7 +49,7 @@ Host panel: ⚙ button in the header, hold logo 3 s, or press H (H also closes i
 | 2 | Spin | Header, Madame Nocturne + caption, wheel, "SPIN THE WHEEL". | `VO_INTRO_*` once per session; `VO_IDLE_*` after 20 s idle |
 | 3 | Spinning | Button disabled ("THE WHEEL TURNS…"), ticks slow down. | `VO_SPIN_*`, `SFX_SPIN_START`, `SFX_TICK` per slice passed, `SFX_DRONE_RISE`, `SFX_STOP` |
 | 4 | Result | Card unrolls (bottom sheet on phones, beside wheel on landscape/desktop). Treat, Grand Prize and Fortune cards only have **Close** (one spin per guest); only the Black Cat card has **Spin now**. Closing stops the voice. | Result VO + SFX (see §5) |
-| 5 | Host panel | Side panel that slides in from the right (full width on phones). Prize names, grand prizes left (0–10, default 3, with reset), voice/music/SFX toggles, reset. Open with the ⚙ button (next to the sound button), a 3 s hold on the title, or H. Close with ×, Done, Esc, H or tapping outside. Saved in `localStorage`. | — |
+| 5 | Host panel | Side panel that slides in from the right (full width on phones). Prize names, grand prizes left (0–10, default 3, with reset), voice/music/SFX toggles, reset. Open with the ⚙ button (next to the sound button), a 3 s hold on the title, or H. Close with ×, Done, Esc, H or tapping outside. Opens any time, even while the wheel spins: the wheel keeps turning behind the panel and the result card waits until the panel is closed (so new settings, like the language, apply to that result). Saved in `localStorage`. | — |
 
 ## 4. The wheel
 

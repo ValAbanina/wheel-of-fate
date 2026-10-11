@@ -148,6 +148,9 @@ async function spin(): Promise<void> {
   audio.sfx('SFX_STOP');
   // Let Madame Nocturne finish her sentence before the card opens — never cut her off.
   await audio.whenQuiet();
+  // If the host opened the settings mid-spin, the result waits until the panel is closed
+  // (so the card never pops up on top of the panel, and any new settings are used).
+  await hostClosed();
 
   // 3. Treats never run out. Grand prizes are counted; when they're all claimed,
   //    the Grand Prize slice gives a treat so nobody leaves empty-handed.
@@ -313,8 +316,13 @@ function renderHost(): void {
   hostDlg.querySelectorAll<HTMLInputElement>('input[name="lang"]').forEach((r) => (r.checked = r.value === settings.lang));
 }
 const hostBtn = $<HTMLButtonElement>('host-btn');
+/** Resolves once the host panel is closed (right away if it isn't open). */
+function hostClosed(): Promise<void> {
+  if (!hostDlg.open) return Promise.resolve();
+  return new Promise((resolve) => hostDlg.addEventListener('close', () => resolve(), { once: true }));
+}
 function openHost(): void {
-  if (hostDlg.open || spinning) return;
+  if (hostDlg.open) return; // works any time, even while the wheel is spinning
   renderHost();
   hostDlg.classList.remove('is-closing');
   hostDlg.showModal();
@@ -392,7 +400,11 @@ brand.addEventListener('contextmenu', (e) => e.preventDefault());
 /* ---------- Keyboard ---------- */
 document.addEventListener('keydown', (e) => {
   const target = e.target as HTMLElement;
-  const typing = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA';
+  // Ignore keys only while typing text (prize names); radios, switches and buttons still allow H.
+  const typing =
+    (target instanceof HTMLInputElement && !['radio', 'checkbox', 'button', 'submit'].includes(target.type)) ||
+    target.tagName === 'TEXTAREA' ||
+    target.isContentEditable;
   if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.key.toLowerCase() === 'h') {
     e.preventDefault();
@@ -414,7 +426,7 @@ function applyLang(): void {
   });
   wheel.setLabels(l.wheel);
   audio.setVoiceFolder(l.audio);
-  if (!spinning) spinBtn.textContent = t('spin');
+  spinBtn.textContent = spinning ? t('spinning') : t('spin');
   if (!captionEl.classList.contains('is-speaking')) setCaption(t('waiting'), false);
   renderSound();
   renderResetStock();
