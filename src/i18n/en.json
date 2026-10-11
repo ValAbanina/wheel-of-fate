@@ -1,0 +1,49 @@
+{
+  "label": "English",
+  "htmlLang": "en",
+  "audio": "en",
+  "quotes": [
+    "“",
+    "”"
+  ],
+  "ui": {
+    "docTitle": "Madame Nocturne's Wheel of Fate",
+    "eyebrow": "Madame Nocturne's",
+    "title": "Wheel of Fate",
+    "intro": "Spin the wheel. Win a treat, or hear what the spirits have to say about your future.",
+    "enter": "Enter if you dare",
+    "note": "Turn your sound on for the full experience",
+    "waiting": "Madame Nocturne is waiting…",
+    "welcomeBack": "Welcome back. The wheel is waiting…",
+    "spin": "Spin the wheel",
+    "spinning": "The wheel turns…",
+    "close": "Close",
+    "spinNow": "Spin now",
+    "mute": "Mute sound",
+    "unmute": "Unmute sound",
+    "wheelLabel": "Spin the wheel",
+    "wheelDesc": "12 slices: 3 treats, 1 grand prize, 7 fortunes and 1 spin again.",
+    "fortuneEyebrow": "Your fortune",
+    "fortuneFoot": "Madame Nocturne has spoken.",
+    "treatEyebrow": "The spirits are generous",
+    "treatTitle": "A Treat!",
+    "treatBody": "Show this screen to your host to claim your sweet reward.",
+    "prizePrefix": "Prize: ",
+    "grandEyebrow": "The golden hourglass",
+    "grandTitle": "Grand Prize!",
+    "grandBody": "In a hundred years, Madame Nocturne has seen this only thrice. Find your host right away.",
+    "grandGoneEyebrow": "The golden hourglass is already claimed",
+    "grandGoneBody": "The spirits won’t send you away empty-handed. Show this screen to your host for your treat.",
+    "catEyebrow": "The black cat changed its mind",
+    "catTitle": "Spin Again!",
+    "catBody": "Fate gives you another turn. The wheel is waiting.",
+    "catFoot": "Free spin"
+  },
+  "wheel": {
+    "grand": "GRAND PRIZE",
+    "treat": "TREAT",
+    "fortune": "FORTUNE",
+    "cat": "SPIN AGAIN",
+    "hub": "SPIN"
+  }
+}

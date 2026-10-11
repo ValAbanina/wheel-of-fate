@@ -1,0 +1,29 @@
+/* Design tokens — mirrored from the Figma variables "Nocturne / Night" */
+:root {
+  --bg-night: #0e0b12;
+  --bg-plum: #241629;
+  --surface-plum-light: #3a2343;
+  --surface-parchment: #e9dcc0;
+  --ink-dark: #1b1418;
+  --ink-bone: #f2e8d5;
+  --ink-muted: #b9a8b8;
+  --accent-gold: #d9a441;
+  --accent-gold-light: #e9c46a;
+  --accent-ember: #e0662a;
+  --accent-rust: #8f3110;
+  --accent-crimson: #8e1b2e;
+  --accent-spectral: #7fb8a8;
+
+  --gradient-gold: linear-gradient(180deg, #f3d78a 0%, #b8862b 100%);
+  --gradient-parchment: linear-gradient(180deg, #f4ead3 0%, #dcc9a2 100%);
+  --gradient-crimson: linear-gradient(180deg, #7a1426 0%, #3e0a16 60%, #1b0710 100%);
+
+  --font-display: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+  --font-label: 'Cinzel', Georgia, serif;
+  --font-body: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+  --radius-card: 24px;
+  --radius-pill: 999px;
+  --gutter: 24px;
+  --focus-ring: 0 0 0 3px var(--bg-night), 0 0 0 7px var(--ink-bone);
+}

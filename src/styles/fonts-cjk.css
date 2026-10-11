@@ -1,0 +1,27 @@
+/* Chinese fonts: Noto Serif SC/TC (SIL OFL), cut down to only the characters the game uses
+   (rebuild with `npm run fonts:cjk` after editing src/i18n/zh-*.json). Other characters fall
+   back to the device's own Chinese font. */
+@font-face {
+  font-family: 'Nocturne SC';
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-sc-500-subset.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nocturne SC';
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-sc-700-subset.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nocturne TC';
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-tc-500-subset.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nocturne TC';
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/noto-serif-tc-700-subset.woff2') format('woff2');
+}

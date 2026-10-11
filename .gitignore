@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+.DS_Store
+*.ai
+*.eps
+*.log
+*.tmp.mp3

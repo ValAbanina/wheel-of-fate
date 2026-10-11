@@ -1,0 +1,258 @@
+{
+  "title": "Madame Nocturne's Wheel of Fate",
+  "voice": [
+    {
+      "id": "VO_INTRO_1",
+      "moment": "intro",
+      "text": "[slowly] Ahh… a new soul wanders in from the dark. Come closer. The Wheel of Fate has been waiting for you."
+    },
+    {
+      "id": "VO_INTRO_2",
+      "moment": "intro",
+      "text": "[whispers] Shhh… the candles have noticed you. Spin the wheel, and let the spirits decide what you deserve."
+    },
+    {
+      "id": "VO_IDLE_1",
+      "moment": "idle",
+      "text": "[amused] Don't be shy. The wheel doesn't bite… it only grades on a curve."
+    },
+    {
+      "id": "VO_IDLE_2",
+      "moment": "idle",
+      "text": "[whispers] The spirits grow restless… spin, before they assign homework."
+    },
+    {
+      "id": "VO_SPIN_1",
+      "moment": "spin",
+      "text": "Round and round… where fate stops, nobody knows."
+    },
+    {
+      "id": "VO_SPIN_2",
+      "moment": "spin",
+      "text": "[laughs softly] Yes… let it whirl."
+    },
+    {
+      "id": "VO_PRIZE_SMALL_1",
+      "moment": "treat",
+      "text": "[delighted] A treat! The spirits are generous tonight. Go, claim your sweet reward."
+    },
+    {
+      "id": "VO_PRIZE_SMALL_2",
+      "moment": "treat",
+      "text": "Hmm… the candles burn bright for you. A treat is yours."
+    },
+    {
+      "id": "VO_PRIZE_GRAND_1",
+      "moment": "grand",
+      "text": "[gasps] The golden hourglass! In a hundred years, I have seen this only thrice. The Grand Prize is yours!"
+    },
+    {
+      "id": "VO_FORTUNE_INTRO_1",
+      "moment": "fortuneIntro",
+      "text": "[slowly] Let me look into the glass…"
+    },
+    {
+      "id": "VO_FORTUNE_INTRO_2",
+      "moment": "fortuneIntro",
+      "text": "[whispers] The mist is clearing… I see…"
+    },
+    {
+      "id": "VO_SPIN_AGAIN",
+      "moment": "spinAgain",
+      "text": "The black cat crossed your path… and changed its mind. Spin again!"
+    },
+    {
+      "id": "VO_GRAND_GONE",
+      "moment": "grandGone",
+      "text": "[softly] The golden hourglass has already been claimed tonight… but the spirits will not send you away empty-handed. Take a treat!"
+    }
+  ],
+  "fortunes": [
+    {
+      "id": "VO_FORTUNE_01",
+      "text": "A door you thought was locked will creak open before the next full moon."
+    },
+    {
+      "id": "VO_FORTUNE_02",
+      "text": "Someone is thinking of you right now… and smiling. Or plotting. The mist is unclear."
+    },
+    {
+      "id": "VO_FORTUNE_03",
+      "text": "An email you have been dreading will turn out to be good news."
+    },
+    {
+      "id": "VO_FORTUNE_04",
+      "text": "Beware of the third cookie. The first two are safe."
+    },
+    {
+      "id": "VO_FORTUNE_05",
+      "text": "A black cat will cross your path, and it will bring luck, not trouble."
+    },
+    {
+      "id": "VO_FORTUNE_06",
+      "text": "The stars say yes. The moon says maybe. The bats refuse to comment."
+    },
+    {
+      "id": "VO_FORTUNE_07",
+      "text": "An old friend will send a message, and it will make your whole week."
+    },
+    {
+      "id": "VO_FORTUNE_08",
+      "text": "Your courage is bigger than your shadow, even at sunset."
+    },
+    {
+      "id": "VO_FORTUNE_09",
+      "text": "A small risk you take this month will grow into something wonderful."
+    },
+    {
+      "id": "VO_FORTUNE_10",
+      "text": "The spirits see an adventure in your future. Pack snacks."
+    },
+    {
+      "id": "VO_FORTUNE_11",
+      "text": "Someone at this party will remember your kindness for years."
+    },
+    {
+      "id": "VO_FORTUNE_12",
+      "text": "You will laugh so hard this week that a ghost somewhere will hear it."
+    },
+    {
+      "id": "VO_FORTUNE_13",
+      "text": "A deadline will move in your favour. Do not ask how. Just say thank you."
+    },
+    {
+      "id": "VO_FORTUNE_14",
+      "text": "A wish you made long ago is still on its way. Do not cancel it."
+    },
+    {
+      "id": "VO_FORTUNE_15",
+      "text": "You will be brave at exactly the right moment."
+    },
+    {
+      "id": "VO_FORTUNE_16",
+      "text": "The candle flickers your name. Something sweet is coming."
+    },
+    {
+      "id": "VO_FORTUNE_17",
+      "text": "The coffee machine will work on the first try when you need it most."
+    },
+    {
+      "id": "VO_FORTUNE_18",
+      "text": "The answer you are looking for is in the reading you skipped. The spirits are sorry."
+    },
+    {
+      "id": "VO_FORTUNE_19",
+      "text": "A secret will be told to you. Keep it. The spirits are watching."
+    },
+    {
+      "id": "VO_FORTUNE_20",
+      "text": "Your future is bright… almost too bright for a creature of the night like me."
+    }
+  ],
+  "audio": [
+    {
+      "id": "MUS_MAIN",
+      "kind": "music",
+      "seconds": 90,
+      "prompt": "Instrumental, mysterious Victorian music box and low cello, slow waltz, candlelit fortune teller's parlour, eerie but playful, seamless loop",
+      "loop": true
+    },
+    {
+      "id": "AMB_WIND",
+      "kind": "sfx",
+      "seconds": 20,
+      "prompt": "Soft night wind through a ruined chapel, distant owl, seamless loop",
+      "loop": true
+    },
+    {
+      "id": "SFX_SPIN_START",
+      "kind": "sfx",
+      "seconds": 1,
+      "prompt": "Heavy wooden wheel creaks and starts turning",
+      "loop": false
+    },
+    {
+      "id": "SFX_TICK",
+      "kind": "sfx",
+      "seconds": 0.5,
+      "prompt": "Single short wooden peg click against a leather flap, dry, no reverb",
+      "loop": false
+    },
+    {
+      "id": "SFX_DRONE_RISE",
+      "kind": "sfx",
+      "seconds": 5,
+      "prompt": "Rising ghostly choir drone building tension",
+      "loop": false
+    },
+    {
+      "id": "SFX_STOP",
+      "kind": "sfx",
+      "seconds": 1,
+      "prompt": "Wheel thuds to a stop, candle flames whoosh up",
+      "loop": false
+    },
+    {
+      "id": "SFX_WIN_SMALL",
+      "kind": "sfx",
+      "seconds": 2,
+      "prompt": "Magical chime with tiny sparkles and a soft spooky giggle",
+      "loop": false
+    },
+    {
+      "id": "SFX_WIN_GRAND",
+      "kind": "sfx",
+      "seconds": 4,
+      "prompt": "Grand pipe organ sting, bells and shimmering gold sparkles",
+      "loop": false
+    },
+    {
+      "id": "SFX_FORTUNE",
+      "kind": "sfx",
+      "seconds": 2,
+      "prompt": "Crystal ball hum, glassy shimmer",
+      "loop": false
+    },
+    {
+      "id": "SFX_CARD",
+      "kind": "sfx",
+      "seconds": 2,
+      "prompt": "Old parchment scroll unrolling with a soft whoosh",
+      "loop": false
+    },
+    {
+      "id": "SFX_CAT",
+      "kind": "sfx",
+      "seconds": 1,
+      "prompt": "Black cat meow, slightly echoey",
+      "loop": false
+    },
+    {
+      "id": "SFX_CURTAIN",
+      "kind": "sfx",
+      "seconds": 2,
+      "prompt": "Heavy velvet curtain sweeps open",
+      "loop": false
+    }
+  ],
+  "wheel": [
+    "grand",
+    "fortune",
+    "fortune",
+    "treat",
+    "fortune",
+    "fortune",
+    "treat",
+    "cat",
+    "fortune",
+    "treat",
+    "fortune",
+    "fortune"
+  ],
+  "defaults": {
+    "treatName": "Halloween candy",
+    "grandName": "Campus store gift card",
+    "grandStock": 3,
+    "grandStockMax": 10
+  }
+}

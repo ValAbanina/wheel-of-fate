@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e0b12" />
+    <meta name="description" content="Spin Madame Nocturne's Wheel of Fate: win a Halloween treat or hear your fortune." />
+    <title>Madame Nocturne's Wheel of Fate</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230e0b12' stroke='%23d9a441' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='16' fill='%23e9c46a'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true">
+      <div class="stars" id="stars"></div>
+      <div class="moon"></div>
+      <div class="bat" style="left: 7%; top: 14%; transform: rotate(-12deg)" data-icon="bat"></div>
+      <div class="bat" style="left: 54%; top: 4%; transform: rotate(8deg) scale(.7)" data-icon="bat"></div>
+      <div class="bat" style="left: 86%; top: 23%; transform: rotate(-6deg) scale(.6)" data-icon="bat"></div>
+      <div class="fog"></div>
+      <img class="candelabra candelabra--left" src="./src/assets/icons/candelabra.svg" alt="" width="120" height="200" />
+      <img class="candelabra candelabra--right" src="./src/assets/icons/candelabra.svg" alt="" width="120" height="200" />
+    </div>
+
+    <main>
+      <!-- 1. Enter -->
+      <section id="enter" class="screen screen--enter enter" aria-labelledby="enter-title">
+        <div class="curtain curtain--left" aria-hidden="true"></div>
+        <div class="curtain curtain--right" aria-hidden="true"></div>
+        <img class="enter__madame" src="./src/assets/icons/madame-nocturne.svg" alt="" width="200" height="220" />
+        <p class="eyebrow" data-i18n="eyebrow">Madame Nocturne's</p>
+        <h1 class="title" id="enter-title" data-i18n="title">Wheel of Fate</h1>
+        <p class="enter__intro" data-i18n="intro">Spin the wheel. Win a treat, or hear what the spirits have to say about your future.</p>
+        <button class="btn btn--primary" id="enter-btn" type="button" data-i18n="enter">Enter if you dare</button>
+        <p class="enter__note" data-i18n="note">Turn your sound on for the full experience</p>
+      </section>
+
+      <!-- 2. Play -->
+      <section id="play" class="screen screen--play" hidden aria-label="Wheel of Fate" data-i18n-aria-label="title">
+        <div class="play">
+          <header class="header">
+            <div class="brand" id="brand" title="Host: hold for 3 seconds, or press H">
+              <p class="eyebrow" data-i18n="eyebrow">Madame Nocturne's</p>
+              <h1 class="title" data-i18n="title">Wheel of Fate</h1>
+            </div>
+            <button class="icon-btn" id="sound-btn" type="button" aria-pressed="false" aria-label="Mute sound" data-icon="speaker"></button>
+          </header>
+
+          <div class="host">
+            <img class="host__madame" src="./src/assets/icons/madame-nocturne.svg" alt="" width="200" height="220" />
+            <div class="caption" id="caption">
+              <span class="caption__dot" aria-hidden="true"></span>
+              <p class="caption__text" id="caption-text" aria-live="polite">Madame Nocturne is waiting…</p>
+            </div>
+          </div>
+
+          <div class="wheel-wrap">
+            <button class="wheel" id="wheel" type="button" aria-label="Spin the wheel" data-i18n-aria-label="wheelLabel" aria-describedby="wheel-desc"></button>
+            <p class="sr-only" id="wheel-desc" data-i18n="wheelDesc">12 slices: 3 treats, 1 grand prize, 7 fortunes and 1 spin again.</p>
+          </div>
+
+          <div class="action">
+            <button class="btn btn--primary" id="spin-btn" type="button">Spin the wheel</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 3. Result -->
+    <dialog class="result" id="result" aria-labelledby="result-eyebrow" aria-describedby="result-body">
+      <div class="card" id="result-card">
+        <div class="card__medal" id="result-medal" aria-hidden="true"></div>
+        <p class="card__eyebrow" id="result-eyebrow"></p>
+        <h2 class="card__title" id="result-title"></h2>
+        <p class="card__body" id="result-body"></p>
+        <hr class="card__rule" />
+        <p class="card__foot" id="result-foot"></p>
+        <button class="btn btn--primary" id="result-btn" type="button">Spin again</button>
+      </div>
+    </dialog>
+    <div class="sparkles" id="sparkles" aria-hidden="true"></div>
+
+    <!-- 4. Host panel -->
+    <dialog class="host-panel" id="host-panel" aria-labelledby="host-title" lang="en">
+      <form method="dialog" id="host-form" class="host-panel__form">
+        <header class="host-panel__head">
+          <div>
+            <p class="eyebrow">Host panel</p>
+            <h2 id="host-title">Set up the wheel</h2>
+          </div>
+          <button type="button" class="icon-btn host-panel__close" id="host-close" aria-label="Close host panel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </header>
+
+        <div class="host-panel__body">
+        <p class="note">Hold the title for 3 seconds, or press H on a keyboard. Guests never see this.</p>
+
+        <fieldset class="group">
+          <legend class="eyebrow">Language</legend>
+          <div class="langs" id="langs">
+            <label class="lang"><input type="radio" name="lang" value="en" /><span lang="en">English</span></label>
+            <label class="lang"><input type="radio" name="lang" value="ru" /><span lang="ru">Русский</span></label>
+            <label class="lang"><input type="radio" name="lang" value="zh-Hans" /><span lang="zh-Hans">简体中文</span></label>
+            <label class="lang"><input type="radio" name="lang" value="zh-Hant" /><span lang="zh-Hant">繁體中文</span></label>
+          </div>
+          <p class="hint">Changes the words on screen and Madame Nocturne's voice.</p>
+        </fieldset>
+
+        <fieldset class="group">
+          <legend class="eyebrow">Prizes</legend>
+          <div class="row row--field"><label for="treat-name">Treat slices (3)</label><input type="text" id="treat-name" autocomplete="off" /></div>
+          <div class="row row--field"><label for="grand-name">Grand Prize slice (1)</label><input type="text" id="grand-name" autocomplete="off" /></div>
+        </fieldset>
+
+        <fieldset class="group">
+          <legend class="eyebrow">Grand prizes</legend>
+          <div class="row">
+            <span class="label" id="grand-stock-label">Grand prizes left</span>
+            <div class="stepper" role="group" aria-labelledby="grand-stock-label">
+              <button type="button" data-step="grandStock" data-delta="-1" aria-label="One fewer grand prize">−</button>
+              <output id="grand-stock" aria-live="polite">0</output>
+              <button type="button" data-step="grandStock" data-delta="1" aria-label="One more grand prize">+</button>
+            </div>
+          </div>
+          <p class="hint">Up to 10. When they're all claimed, the Grand Prize slice gives a treat instead. Treats never run out.</p>
+          <div class="row"><button type="button" class="link-btn" id="reset-stock">Reset grand prizes</button></div>
+        </fieldset>
+
+        <fieldset class="group">
+          <legend class="eyebrow">Sound</legend>
+          <div class="row"><label for="opt-voice">Madame Nocturne's voice</label><input class="switch" type="checkbox" role="switch" id="opt-voice" /></div>
+          <div class="row"><label for="opt-music">Music</label><input class="switch" type="checkbox" role="switch" id="opt-music" /></div>
+          <div class="row"><label for="opt-sfx">Sound effects</label><input class="switch" type="checkbox" role="switch" id="opt-sfx" /></div>
+        </fieldset>
+        </div>
+
+        <div class="actions host-panel__foot">
+          <button type="button" class="btn btn--secondary" id="reset-fortunes">Reset fortunes</button>
+          <button type="submit" class="btn btn--primary" id="host-done">Done</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
